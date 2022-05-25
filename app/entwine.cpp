@@ -39,8 +39,6 @@ namespace
             t(1) + "Apps:\n" +
             t(2) + "build\n" +
             t(3) + "Build an EPT dataset\n" +
-            t(2) + "scan\n" +
-            t(3) + "Aggregate information about an unindexed dataset\n" +
             t(2) + "merge\n" +
             t(3) + "Merge colocated entwine subsets\n" +
             t(2) + "info\n" +
@@ -424,11 +422,16 @@ int main(int argc, char** argv)
             std::cout << getUsageString() << std::endl;
         }
     }
-    catch (std::runtime_error& e)
+    catch (std::exception& e)
     {
         std::cout << "Encountered an error: " << e.what() << std::endl;
         std::cout << "Exiting." << std::endl;
         return 1;
+    }
+    catch (...)
+    {
+        std::cout << "Encountered an unknown exception!"  << std::endl;
+        return 2;
     }
 
     return 0;

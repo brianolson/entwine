@@ -10,10 +10,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        platform: ['ubuntu-latest']
-
-    env:
-      PLATFORM: ${{ matrix.platform }}
+        platform: ['ubuntu-latest','windows-latest','macos-latest']
 
     steps:
     - uses: actions/checkout@v2
@@ -33,9 +30,6 @@ jobs:
       run: |
           source ../scripts/ci/conda/compile.sh
       working-directory: ./entwine-feedstock
-
-    - uses: ilammy/msvc-dev-cmd@v1
-      if: matrix.platform == 'windows-latest'
 
     - uses: actions/upload-artifact@v2
       with:
