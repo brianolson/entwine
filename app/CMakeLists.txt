@@ -6,6 +6,7 @@ set(
     "${BASE}/entwine.cpp"
     "${BASE}/info.cpp"
     "${BASE}/merge.cpp"
+    "${BASE}/convert.cpp"
     # "${BASE}/scan.cpp"
 )
 
