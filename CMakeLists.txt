@@ -77,8 +77,6 @@ target_link_libraries(entwine
         ${CMAKE_DL_LIBS}
     PRIVATE
         ${PDAL_LIBRARIES}
-        ${CURL_LIBRARIES}
-        ${OPENSSL_LIBRARIES}
         ${SHLWAPI}
 )
 

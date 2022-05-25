@@ -25,8 +25,6 @@ function(compiler_options target)
 			${ROOT_DIR}
             ${PROJECT_BINARY_DIR}/include
             ${PDAL_INCLUDE_DIRS}
-            ${CURL_INCLUDE_DIR}
-            ${OPENSSL_INCLUDE_DIR}
             ${LASZIP_DIRECTORIES}
 			${JSONCPP_INCLUDE_DIR}
     )

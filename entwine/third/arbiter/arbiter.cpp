@@ -1302,7 +1302,7 @@ std::string getTempPath()
     else tmp = "/tmp";
 #else
     std::vector<char> path(MAX_PATH, '\0');
-    if (GetTempPath(MAX_PATH, path.data())) tmp.assign(path.data());
+    if (GetTempPathA(MAX_PATH, path.data())) tmp.assign(path.data());
 #endif
 
     if (tmp.empty()) throw ArbiterError("Could not find a temp path.");
