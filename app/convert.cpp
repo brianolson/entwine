@@ -72,7 +72,8 @@ void Convert::run()
     cesium::Tileset tileset(m_json);
 
     std::cout << "Converting:" << std::endl;
-    std::cout << "\tInput: " << tileset.out().prefixedRoot() << "\n";
+    std::cout << "\tInput: " << tileset.in().prefixedRoot() << "\n";
+    std::cout << "\tOutput: " << tileset.out().prefixedRoot() << "\n";
     std::cout << "\tColor:  " << tileset.colorString() << std::endl;
     std::cout << "\tTruncate: " << (tileset.truncate() ? "yes" : "no") << "\n";
     std::cout << "\tThreads: " << tileset.threadPool().numThreads() << "\n";

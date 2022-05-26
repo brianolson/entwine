@@ -25,7 +25,17 @@ Pnts::Pnts(const Tileset& tileset, const ChunkKey& ck)
 
 std::vector<char> Pnts::build()
 {
-    auto layout = toLayout(m_tileset.metadata().schema);
+    FixedPointLayout layout;
+    for (const auto& dim : m_tileset.metadata().absoluteSchema)
+    {
+        if (dim.name == "X" || dim.name == "Y" || dim.name == "Z"){
+            layout.registerOrAssignFixedDim(dim.name, DimType::Double);
+        }else{
+            layout.registerOrAssignFixedDim(dim.name, dim.type);
+        }
+    }
+    layout.finalize();
+
     VectorPointTable table(layout);
     table.setProcess([this, &table]()
     {
@@ -47,7 +57,7 @@ std::vector<char> Pnts::build()
 void Pnts::buildXyz(VectorPointTable& table)
 {
     m_xyz.reserve(m_xyz.size() + table.numPoints() * 3);
-
+    
     for (const auto& pr : table)
     {
         m_xyz.push_back(pr.getFieldAs<double>(DimId::X) - m_mid.x);
