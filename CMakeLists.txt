@@ -62,6 +62,7 @@ set(OBJS
     $<TARGET_OBJECTS:builder>
     $<TARGET_OBJECTS:types>
     $<TARGET_OBJECTS:util>
+    $<TARGET_OBJECTS:formats>
 )
 
 if (MSVC)

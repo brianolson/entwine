@@ -40,11 +40,6 @@ std::vector<char> Pnts::build()
                 m_tileset.endpoints(),
                 m_key.get().toString(),
                 table);
-    // m_tileset.metadata().dataIo().read(
-    //         m_tileset.in().getSubEndpoint("ept-data"),
-    //         m_tileset.tmp(),
-    //         m_key.get().toString(),
-    //         table);
 
     return buildFile();
 }

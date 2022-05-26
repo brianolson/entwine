@@ -19,9 +19,11 @@ namespace cesium
 {
 
 Tileset::Tileset(const json& config)
-    : m_arbiter(config.value("arbiter", json()).dump())
-    , m_endpoints(config::getEndpoints(config))
-    , m_metadata(config::getMetadata(config))
+    : m_endpoints(Endpoints( std::make_shared<arbiter::Arbiter>(config::getArbiter(config)), config::getInput(config).front(), config::getTmp(config)))
+    , m_in(m_endpoints.arbiter->getEndpoint(config::getInput(config).front()))
+    , m_out(m_endpoints.arbiter->getEndpoint(config::getOutput(config)))
+    , m_tmp(m_endpoints.arbiter->getEndpoint(config::getTmp(config))) 
+    , m_metadata(config::getMetadata(json::parse(m_endpoints.arbiter->get(config::getInput(config).front() + "/ept.json"))))
     , m_colorType(getColorType(config))
     , m_truncate(config.value("truncate", false))
     , m_hasNormals(
@@ -81,9 +83,7 @@ ColorType Tileset::getColorType(const json& config) const
 Tileset::HierarchyTree Tileset::getHierarchyTree(const ChunkKey& root) const
 {
     HierarchyTree h;
-    const std::string file(root.get().toString() + ".json");
-    // const auto fetched(json::parse(m_in.get(file)));
-    const auto fetched(json::parse(m_endpoints.hierarchy.get(file)));
+    const auto fetched(json::parse(m_endpoints.hierarchy.get(root.get().toString() + ".json")));
 
     for (const auto& p : fetched.items())
     {
@@ -95,8 +95,7 @@ Tileset::HierarchyTree Tileset::getHierarchyTree(const ChunkKey& root) const
 
 void Tileset::build() const
 {
-    auto k = ChunkKey(m_metadata.bounds, getStartDepth(m_metadata));
-    build(k);
+    build(ChunkKey(m_metadata.bounds, getStartDepth(m_metadata)));
     m_threadPool.await();
 }
 

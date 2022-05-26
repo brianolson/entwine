@@ -40,9 +40,10 @@ public:
 
     void build() const;
 
-    const arbiter::Endpoint& out() const { return m_endpoints.output; }
-    const arbiter::Endpoint& tmp() const { return m_endpoints.tmp; }
     const Endpoints& endpoints() const { return m_endpoints; }
+    const arbiter::Endpoint& in() const { return m_in; }
+    const arbiter::Endpoint& out() const { return m_out; }
+    const arbiter::Endpoint& tmp() const { return m_tmp; }
 
     const Metadata& metadata() const { return m_metadata; }
     bool hasColor() const { return m_colorType != ColorType::None; }
@@ -69,8 +70,11 @@ private:
     ColorType getColorType(const json& config) const;
     HierarchyTree getHierarchyTree(const ChunkKey& root) const;
 
-    arbiter::Arbiter m_arbiter;
     const Endpoints m_endpoints;
+
+    const arbiter::Endpoint m_in;
+    const arbiter::Endpoint m_out;
+    const arbiter::Endpoint m_tmp;
 
     const Metadata m_metadata;
     const ColorType m_colorType;
